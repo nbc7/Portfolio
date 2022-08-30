@@ -1,0 +1,43 @@
+query GetGithubApi {
+  viewer {
+    login
+    name
+    company
+    email
+    twitterUsername
+    location
+    bio
+    avatarUrl
+    websiteUrl
+    pinnedItems(first: 6, types: REPOSITORY) {
+      nodes {
+        ... on Repository {
+          id
+          name
+          description
+          forkCount
+          stargazerCount
+          primaryLanguage {
+            color
+            name
+          }
+          homepageUrl
+        }
+      }
+    }
+    repositories(last: 100, privacy: PUBLIC, orderBy: { field: CREATED_AT, direction: DESC }) {
+      nodes {
+        id
+        name
+        description
+        forkCount
+        stargazerCount
+        primaryLanguage {
+          color
+          name
+        }
+        homepageUrl
+      }
+    }
+  }
+}
