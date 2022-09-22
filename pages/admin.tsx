@@ -84,7 +84,7 @@ function AdmPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (repository === '' || tags[0] != '' || tags.length > 0) return alert('Required field is empty.');
+    if (repository === '' || tags[0] === '' || tags.length <= 0) return alert('Required field is empty.');
 
     const uid = auth.currentUser.uid;
     const ref = firestore.collection('users').doc(uid).collection('projects').doc(encodeURI(repository));
