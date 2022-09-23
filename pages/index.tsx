@@ -154,21 +154,21 @@ export default function Home() {
             </Card>
           </div>
 
-          {tagsDoc && (
+          {/* {tagsDoc && (
             <div className="flex flex-wrap gap-1 mx-4">
               {tagsDoc.map((tag, index) => {
                 return (
                   // <button key={index} className="bg-cinza-700 text-cinza-500 w-fit flex rounded-md shadow-card px-3">
                   <button
                     key={index}
-                    className="bg-transparent hover:bg-cinza-700 text-cinza-500 hover:text-white border border-cinza-600 w-fit flex rounded-xl shadow-card px-3"
+                    className={`bg-transparent hover:bg-cinza-700 text-cinza-500 hover:text-white border border-cinza-600 w-fit flex rounded-xl shadow-card px-3`}
                   >
                     {tag.name}
                   </button>
                 );
               })}
             </div>
-          )}
+          )} */}
 
           {/* <div className="flex flex-wrap sm:flex-nowrap gap-[30px] justify-center"> */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-[30px] justify-center">
