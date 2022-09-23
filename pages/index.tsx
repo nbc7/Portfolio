@@ -36,86 +36,8 @@ import { Card } from '../components/Card';
 import { LinkCardItem } from '../components/LinkCardItem';
 import { Badge } from '../components/Badge';
 import { useGetGithubApiQuery } from '../graphql/generated';
-
-interface ProfileData {
-  login: string;
-  id: number;
-  node_id: string;
-  avatar_url: string;
-  gravatar_id: string;
-  url: string;
-  html_url: string;
-  followers_url: string;
-  following_url: string;
-  gists_url: string;
-  starred_url: string;
-  subscriptions_url: string;
-  organizations_url: string;
-  repos_url: string;
-  events_url: string;
-  received_events_url: string;
-  type: string;
-  site_admin: boolean;
-  name?: string;
-  company?: string;
-  blog: string;
-  location: string;
-  email: string;
-  hireable?: any;
-  bio: string;
-  twitter_username?: string;
-  public_repos: number;
-  public_gists: number;
-  followers: number;
-  following: number;
-  created_at: Date;
-  updated_at: Date;
-  private_gists: number;
-  total_private_repos: number;
-  owned_private_repos: number;
-  disk_usage: number;
-  collaborators: number;
-  two_factor_authentication: boolean;
-  plan: { name: string; space: number; collaborators: number; private_repos: number };
-}
-
-// interface EmailData {
-//   email: string;
-//   primary: boolean;
-//   verified: boolean;
-//   visibility: string;
-// }
-
-interface Query {
-  data: {
-    viewer: {
-      login: string;
-      name: string;
-      company: boolean;
-      email: string;
-      twitterUsername: boolean;
-      location: string;
-      bio: string;
-      avatarUrl: string;
-      websiteUrl: boolean;
-      pinnedItems: {
-        nodes: [
-          {
-            id: string;
-            name: string;
-            description: boolean;
-            forkCount: number;
-            stargazerCount: number;
-            primaryLanguage: {
-              name: string;
-              color: string;
-            };
-          }
-        ];
-      };
-    };
-  };
-}
+import { firestore } from '../lib/firebase';
+import { useCollection } from 'react-firebase-hooks/firestore';
 
 export default function Home() {
   // const [profile, setProfile] = useState<ProfileData | null>(null);
@@ -123,23 +45,11 @@ export default function Home() {
   const profile = data?.viewer;
   // console.log(data?.viewer);
 
-  // const handleProfile = async () => {
-  //   const config = {
-  //     headers: { Authorization: `token ${import.meta.env.VITE_GITHUB_TOKEN}` },
-  //   };
-  //   // const user = await axios.get<ProfileData>('https://api.github.com/users/birobirobiro', config);
-  //   const user = await axios.get('https://api.github.com/user', config);
-  //   // const repos = await axios.get('https://api.github.com/users/birobirobiro/repos', config);
-  //   const repos = await axios.get('https://api.github.com/user/repos', config);
-
-  //   // setProfile(user.data);
-  //   console.log(user.data);
-  //   console.log(repos.data);
-  // };
-
-  // useEffect(() => {
-  //   handleProfile();
-  // }, []);
+  const ref = firestore.collectionGroup('tags');
+  const [querySnapshot] = useCollection(ref as any);
+  const tagsDoc = querySnapshot?.docs.map((doc) => {
+    return doc.data();
+  });
 
   return (
     <div>
@@ -165,9 +75,9 @@ export default function Home() {
                     {profile.location && <LinkCardItem icon={<MapPin />} text={profile.location} />}
                     {profile.company && <LinkCardItem icon={<Briefcase />} text={profile.company} />}
                     {profile.login && <LinkCardItem icon={<Github />} text={profile.login} url={`https://github.com/${profile.login}`} />}
-                    {/* <LinkCardItem icon={<LinkedIn />} text="joao-inacio-neto" /> */}
+                    {/* <LinkCardItem icon={<LinkedIn />} text="" /> */}
                     {profile.twitterUsername && <LinkCardItem icon={<Twitter />} text={profile.twitterUsername} />}
-                    {/* <LinkCardItem icon={<Instagram />} text="birobirobiro" /> */}
+                    {/* <LinkCardItem icon={<Instagram />} text="" /> */}
                     {profile.websiteUrl && <LinkCardItem icon={<Globe />} text={profile.websiteUrl} url={profile.websiteUrl} />}
                     {profile.email && <LinkCardItem icon={<Mail />} text={profile.email} url={`mailto:${profile.email}`} />}
                   </div>
@@ -243,6 +153,22 @@ export default function Home() {
               </div>
             </Card>
           </div>
+
+          {tagsDoc && (
+            <div className="flex flex-wrap gap-1 mx-4">
+              {tagsDoc.map((tag, index) => {
+                return (
+                  // <button key={index} className="bg-cinza-700 text-cinza-500 w-fit flex rounded-md shadow-card px-3">
+                  <button
+                    key={index}
+                    className="bg-transparent hover:bg-cinza-700 text-cinza-500 hover:text-white border border-cinza-600 w-fit flex rounded-xl shadow-card px-3"
+                  >
+                    {tag.name}
+                  </button>
+                );
+              })}
+            </div>
+          )}
 
           {/* <div className="flex flex-wrap sm:flex-nowrap gap-[30px] justify-center"> */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-[30px] justify-center">
