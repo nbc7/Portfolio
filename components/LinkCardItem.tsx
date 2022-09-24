@@ -9,7 +9,7 @@ export function LinkCardItem(props: LinkCardItemProps) {
     <div className="flex items-center">
       <div className="px-[10px]">{props.icon}</div>
       {props.url ? (
-        <a href={props.url} target="_blank" className="text-[13px] leading-4 font-normal ml-[10px] hover:text-white">
+        <a href={props.url} target="_blank" rel="noreferrer" className="text-[13px] leading-4 font-normal ml-[10px] hover:text-white">
           {props.text}
         </a>
       ) : (

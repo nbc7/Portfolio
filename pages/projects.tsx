@@ -61,7 +61,7 @@ export default function Projects() {
                             </div>
 
                             <strong className="text-base leading-5 font-bold ml-4 hover:text-white">
-                              <a href={`https://github.com/${profile?.login}/${item.name}`} target="_blank">
+                              <a href={`https://github.com/${profile?.login}/${item.name}`} target="_blank" rel="noreferrer">
                                 {item.name}
                               </a>
                             </strong>
@@ -72,6 +72,7 @@ export default function Projects() {
                               className="ml-4"
                               href={item.homepageUrl.includes('vercel') ? `https://${item.homepageUrl}` : item.homepageUrl}
                               target="_blank"
+                              rel="noreferrer"
                             >
                               <div className="flex gap-1 text-xs items-center hover:text-white">
                                 <span>preview</span>
