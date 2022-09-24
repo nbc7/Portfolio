@@ -5,8 +5,13 @@ import { auth, firestore, googleAuthProvider } from '../lib/firebase';
 
 export default function AuthCheck(props) {
   const { user } = useContext(UserContext);
+  console.log(user);
 
-  return user ? props.children : props.fallback || <SignInButton />;
+  return user ? user.email === 'nathanborgescastro@gmail.com' ? props.children : <User /> : props.fallback || <SignInButton />;
+}
+
+function User() {
+  return <p>Unauthorized access</p>;
 }
 
 function SignInButton() {
