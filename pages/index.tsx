@@ -198,7 +198,11 @@ export default function Home() {
                           {item.homepageUrl && (
                             <a
                               className="ml-4"
-                              href={item.homepageUrl.includes('vercel') ? `https://${item.homepageUrl}` : item.homepageUrl}
+                              href={
+                                item.homepageUrl.includes('vercel') && !item.homepageUrl.startsWith('https://')
+                                  ? `https://${item.homepageUrl}`
+                                  : item.homepageUrl
+                              }
                               target="_blank"
                               rel="noreferrer"
                             >
