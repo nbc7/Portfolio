@@ -65,7 +65,7 @@ export default function Home() {
                   <div className="flex flex-col items-center pb-[19px] px-[46px]">
                     <div className="p-[2px]">
                       <div className="rounded-full overflow-hidden border-2 border-green-500 max-h-32 max-w-32">
-                        <Image src={profile.avatarUrl} alt="profile picture" height={128} width={128} />
+                        <Image src={profile.avatarUrl} alt="profile picture" height="128" width="128" />
                       </div>
                     </div>
                     <strong className="font-bold text-[23px] leading-[29px] mt-7">{profile.name}</strong>
