@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import { useEffect, useState } from 'react';
 import axios from 'axios';
 // import { Link } from 'react-router-dom';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   Bootstrap,
   Briefcase,
@@ -35,11 +35,11 @@ import {
 import { Card } from '../components/Card';
 import { LinkCardItem } from '../components/LinkCardItem';
 import { Badge } from '../components/Badge';
+import { MetaTags } from '../components/MetaTags';
+
 import { useGetGithubApiQuery } from '../graphql/generated';
 import { firestore } from '../lib/firebase';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import { MetaTags } from '../components/Metatags';
-import Image from 'next/image';
 
 export default function Home() {
   // const [profile, setProfile] = useState<ProfileData | null>(null);
