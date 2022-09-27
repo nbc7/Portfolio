@@ -6,7 +6,7 @@ interface Props {
   image: string;
 }
 
-export default function MetaTags({ title, description, image }: Props) {
+export function MetaTags({ title, description, image }: Props) {
   return (
     <Head>
       <meta property="og:title" content={title} />

@@ -38,7 +38,7 @@ import { Badge } from '../components/Badge';
 import { useGetGithubApiQuery } from '../graphql/generated';
 import { firestore } from '../lib/firebase';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import MetaTags from '../components/Metatags';
+import { MetaTags } from '../components/Metatags';
 import Image from 'next/image';
 
 export default function Home() {
