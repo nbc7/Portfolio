@@ -38,6 +38,8 @@ import { Badge } from '../components/Badge';
 import { useGetGithubApiQuery } from '../graphql/generated';
 import { firestore } from '../lib/firebase';
 import { useCollection } from 'react-firebase-hooks/firestore';
+import MetaTags from '../components/Metatags';
+import Image from 'next/image';
 
 export default function Home() {
   // const [profile, setProfile] = useState<ProfileData | null>(null);
@@ -52,16 +54,19 @@ export default function Home() {
   });
 
   return (
-    <div>
+    <main>
       <div className="flex flex-col lg:flex-row p-10 pb-0 gap-[60px]">
         <div className="min-w-fit flex flex-col gap-[30px]">
           {profile && (
             <>
+              <MetaTags title={profile.name} description={`${profile.bio}`} image="/metaImage.png" />
               <div>
                 <Card>
                   <div className="flex flex-col items-center pb-[19px] px-[46px]">
                     <div className="p-[2px]">
-                      <img className="rounded-full border-2 border-green-500 max-h-32 max-w-32" src={profile.avatarUrl} alt="profile picture" />
+                      <div className="rounded-full overflow-hidden border-2 border-green-500 max-h-32 max-w-32">
+                        <Image src={profile.avatarUrl} alt="profile picture" height={128} width={128} />
+                      </div>
                     </div>
                     <strong className="font-bold text-[23px] leading-[29px] mt-7">{profile.name}</strong>
                     <strong className="font-light text-[13px] leading-4 mt-[10px]">{profile.bio}</strong>
@@ -253,6 +258,6 @@ export default function Home() {
       <div className="p-5 text-center">
         <p className="text-sm leading-5">Made by {profile?.login}</p>
       </div>
-    </div>
+    </main>
   );
 }
